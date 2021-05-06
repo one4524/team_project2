@@ -32,8 +32,6 @@ public class MonthCalendarFragment extends Fragment {
     private int mParam1;
     private int mParam2;
 
-    String[] days_name = {"일", "월", "화", "수", "목", "금", "토"};   //요일 배열
-
     int year, month;
     ArrayList<String> days;
 
@@ -105,16 +103,6 @@ public class MonthCalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View monthView = inflater.inflate(R.layout.fragment_month_calendar, container, false);
-
-
-        GridView gridview_day = monthView.findViewById(R.id.days_gridview);
-
-        gridview_day.setAdapter(
-                new ArrayAdapter<String>(
-                        getActivity(),
-                        android.R.layout.simple_list_item_activated_1,
-                        days_name));
-
 
         GridView gridview_month_calendar = monthView.findViewById(R.id.month_calendar);
 

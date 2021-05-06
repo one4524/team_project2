@@ -14,26 +14,24 @@ public class weekGridViewAdapter extends BaseAdapter {
     private Context mContext;
     private int mResource;
     private LayoutInflater mLiInflater;
-    ArrayList<String> can; //날짜 리스트 생성
+    private int can = 24*7;
 
-
-    public weekGridViewAdapter(Context context, int textResource, ArrayList<String> can) {
+    public weekGridViewAdapter(Context context, int textResource) {
 
         this.mContext = context;
         this.mResource = textResource;
-        this.can = can;
         this.mLiInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
     @Override
     public int getCount() {
-        return can.size();
+        return can;
     }
 
     @Override
     public Object getItem(int position) {
-        return can.get(position);
+        return position;
     }
 
     @Override
@@ -43,31 +41,14 @@ public class weekGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MonthGridViewAdapter.DayViewHolde dayViewHolder;
-
         if(convertView == null)
         {
             convertView = mLiInflater.inflate(mResource, null);
-
-            dayViewHolder = new MonthGridViewAdapter.DayViewHolde();
-
-            dayViewHolder.llBackground = (LinearLayout)convertView.findViewById(R.id.day_cell_ll_background);
-            dayViewHolder.tvDay = (TextView) convertView.findViewById(R.id.day_cell_tv_day);
-
-            convertView.setTag(dayViewHolder);
         }
-        else
-        {
-            dayViewHolder = (MonthGridViewAdapter.DayViewHolde) convertView.getTag();
-        }
-
 
         int height = mContext.getResources().getDisplayMetrics().heightPixels - 245;
 
-
-        dayViewHolder.tvDay.setText(can.get(position));
-        dayViewHolder.tvDay.setHeight(height/6 - 5);
-
+        ((TextView)convertView.findViewById(R.id.day_cell_tv_day)).setHeight(height/6 - 5);
 
         return convertView;
     }

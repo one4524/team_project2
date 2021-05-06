@@ -1,12 +1,25 @@
 package com.hansung.android.teamproject2;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,8 +34,13 @@ public class weekViewFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int mParam1;
+    private int mParam2;
+
+    int year, month, date;
+    static int YEAR;
+    static int MONTH;
+    static int DATE;
 
     public weekViewFragment() {
         // Required empty public constructor
@@ -37,11 +55,11 @@ public class weekViewFragment extends Fragment {
      * @return A new instance of fragment week_viewFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static weekViewFragment newInstance(String param1, String param2) {
+    public static weekViewFragment newInstance(int param1, int param2) {
         weekViewFragment fragment = new weekViewFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM1, param1);
+        args.putInt(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,15 +68,31 @@ public class weekViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getInt(ARG_PARAM1);
+            mParam2 = getArguments().getInt(ARG_PARAM2);
         }
+
+        year = Calendar.getInstance().get(Calendar.YEAR);
+        month = Calendar.getInstance().get(Calendar.MONTH);
+        month += 1; //Calendar.MONTH는 0~11로 월을 나타내기 때문에 +1을 해준다.
+        date = Calendar.getInstance().get(Calendar.DATE);
+
+        YEAR = year;
+        MONTH = month;
+        DATE = date;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_week_view, container, false);
+        ViewPager2 vpPager = rootView.findViewById(R.id.vpPager2);
+        vpPager.setOffscreenPageLimit(3);
+        FragmentStateAdapter adapter = new weekCalendarAdapter(this);
+        vpPager.setAdapter(adapter);
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_week_view, container, false);
+        return rootView;
     }
 }
