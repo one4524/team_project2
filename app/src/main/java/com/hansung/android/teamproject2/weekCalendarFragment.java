@@ -1,13 +1,20 @@
 package com.hansung.android.teamproject2;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,7 @@ public class weekCalendarFragment extends Fragment {
     private int mParam3;
 
     int year, month, date;
+    int can = 24*7;
 
     public weekCalendarFragment() {
         // Required empty public constructor
@@ -66,6 +74,16 @@ public class weekCalendarFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            ((MainActivity) activity).setActionBarTitle(year+"년 "+month+"월");
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -76,11 +94,76 @@ public class weekCalendarFragment extends Fragment {
         weekGridViewAdapter weekGridViewAdapter = new weekGridViewAdapter(getContext(), R.layout.day_cell);
         gridview_week_calendar.setAdapter(weekGridViewAdapter);
 
+
+
+        gridview_week_calendar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+
+
+                TextView textView_day1, textView_day2, textView_day3, textView_day4, textView_day5, textView_day6, textView_day7;
+                textView_day1 = weekView.findViewById(R.id.textView1);
+                textView_day2 = weekView.findViewById(R.id.textView2);
+                textView_day3 = weekView.findViewById(R.id.textView3);
+                textView_day4 = weekView.findViewById(R.id.textView4);
+                textView_day5 = weekView.findViewById(R.id.textView5);
+                textView_day6 = weekView.findViewById(R.id.textView6);
+                textView_day7 = weekView.findViewById(R.id.textView7);
+
+                textView_day1.setBackgroundColor(Color.parseColor("#ffffff"));
+                textView_day2.setBackgroundColor(Color.parseColor("#ffffff"));
+                textView_day3.setBackgroundColor(Color.parseColor("#ffffff"));
+                textView_day4.setBackgroundColor(Color.parseColor("#ffffff"));
+                textView_day5.setBackgroundColor(Color.parseColor("#ffffff"));
+                textView_day6.setBackgroundColor(Color.parseColor("#ffffff"));
+                textView_day7.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
+                switch (position % 7){
+                    case 0:
+                        textView_day1.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    case 1:
+                        textView_day2.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    case 2:
+                        textView_day3.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    case 3:
+                        textView_day4.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    case 4:
+                        textView_day5.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    case 5:
+                        textView_day6.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    case 6:
+                        textView_day7.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    default:
+                        textView_day1.setBackgroundColor(Color.parseColor("#00ffff"));
+
+                }
+
+
+                for(int i=0; i<42; i++){
+                    gridview_week_calendar.getChildAt(i).setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+                gridview_week_calendar.getChildAt(position).setBackgroundColor(Color.parseColor("#00ffff"));
+
+
+                Toast.makeText(getContext(),
+                        "position = " + (position),
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         // Inflate the layout for this fragment
         return weekView;
 
 
     }
-
 
 }
