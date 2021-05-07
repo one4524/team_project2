@@ -1,6 +1,7 @@
 package com.hansung.android.teamproject2;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +42,22 @@ public class weekGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        int index = position;
         if(convertView == null)
         {
             convertView = mLiInflater.inflate(mResource, null);
+            convertView.setTag(index);
+
+        } else
+        {
+             index = (int)convertView.getTag();
+            convertView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
         int height = mContext.getResources().getDisplayMetrics().heightPixels - 245;
 
         ((TextView)convertView.findViewById(R.id.day_cell_tv_day)).setHeight(height/6 - 5);
+
 
         return convertView;
     }

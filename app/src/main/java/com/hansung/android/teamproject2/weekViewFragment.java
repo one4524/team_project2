@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -90,6 +91,8 @@ public class weekViewFragment extends Fragment {
         vpPager.setOffscreenPageLimit(3);
         FragmentStateAdapter adapter = new weekCalendarAdapter(this);
         vpPager.setAdapter(adapter);
+
+
 
 
         // Inflate the layout for this fragment

@@ -24,8 +24,6 @@ public class MonthCalendarAdapter extends FragmentStateAdapter {
     }
 
 
-
-
     @Override
     public int getItemCount () {
         return NUM_ITEMS;
