@@ -54,9 +54,8 @@ public class weekGridViewAdapter extends BaseAdapter {
             convertView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
 
-        int height = mContext.getResources().getDisplayMetrics().heightPixels - 245;
-
-        ((TextView)convertView.findViewById(R.id.day_cell_tv_day)).setHeight(height/6 - 5);
+        int height = mContext.getResources().getDisplayMetrics().heightPixels - 230;
+        ((TextView)convertView.findViewById(R.id.day_cell_tv_day)).setHeight(height/6 - 23);
 
 
         return convertView;
