@@ -39,7 +39,8 @@ public class weekCalendarAdapter extends FragmentStateAdapter {
                 setdatelist();
             }
         }else if(position < prePosition){
-
+            // 이전 월 달력 표시
+            // 날짜 표시구간 디자인 수정 필요
         }
         prePosition = position;
         return weekCalendarFragment.newInstance(year, month, index, days);
