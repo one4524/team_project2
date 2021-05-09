@@ -15,7 +15,6 @@ public class weekGridViewAdapter extends BaseAdapter {
     private Context mContext;
     private int mResource;
     private LayoutInflater mLiInflater;
-    private int can = 24*7;
 
     public weekGridViewAdapter(Context context, int textResource) {
 
@@ -27,7 +26,7 @@ public class weekGridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return can;
+        return 168;
     }
 
     @Override

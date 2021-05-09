@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -27,7 +29,8 @@ import java.util.Calendar;
  * Use the {@link weekViewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class weekViewFragment extends Fragment {
+public class weekViewFragment extends Fragment{
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,6 +84,7 @@ public class weekViewFragment extends Fragment {
         YEAR = year;
         MONTH = month;
         DATE = date;
+
     }
 
     @Override
@@ -88,14 +92,14 @@ public class weekViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_week_view, container, false);
         ViewPager2 vpPager = rootView.findViewById(R.id.vpPager2);
-        vpPager.setOffscreenPageLimit(3);
+        vpPager.setOffscreenPageLimit(30);
         FragmentStateAdapter adapter = new weekCalendarAdapter(this);
         vpPager.setAdapter(adapter);
-
-
+        // Attach the page change listener inside the activity
 
 
         // Inflate the layout for this fragment
         return rootView;
     }
+
 }

@@ -1,7 +1,5 @@
 package com.hansung.android.teamproject2;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -17,7 +15,10 @@ public class weekCalendarAdapter extends FragmentStateAdapter {
     int index = 0;
     int prePosition = 0;
     int lastday;
+
     ArrayList<String> days;
+
+
     public weekCalendarAdapter(@NonNull Fragment fragment) {
         super(fragment);
 
@@ -26,22 +27,37 @@ public class weekCalendarAdapter extends FragmentStateAdapter {
 
     @NonNull
     @Override
-    public Fragment createFragment(int position) {
+    public weekCalendarFragment createFragment(int position) {
+
         if(position > prePosition){
             index += 7;
             if(index == days.size() || (index < days.size() && (days.get(index) != " " ? Integer.parseInt(days.get(index)) : 0)>lastday)){
+
                 month += 1;
                 index = 0;
                 if(month>12){
+
                     year += 1;
                     month = 1;
                 }
                 setdatelist();
             }
         }else if(position < prePosition){
-            // 이전 월 달력 표시
-            // 날짜 표시구간 디자인 수정 필요
+            index -= 7;
+            if(index == 0){
+                month -= 1;
+                index = days.size() - 7;
+                if(month < 1){
+                    year -= 1;
+                    month = 12;
+                }
+            }
         }
+
+        if(index < 0 ){
+            index = 0;
+        }
+
         prePosition = position;
         return weekCalendarFragment.newInstance(year, month, index, days);
     }
@@ -67,12 +83,19 @@ public class weekCalendarAdapter extends FragmentStateAdapter {
         for (int i = 0; i < front_empty_day; i++) days.add(" "); //1일 앞의 공백
         for (int i = 1; i <= lastday; i++)
             days.add(String.valueOf(i));  //해당 월의 1일부터 마지막날까지 순서대로 넣음.
-        for (int i = 0; i < end_empty_day; i++) days.add(" ");   // 모양 유지 공백
+        if(days.size() > 35) {
+            for (int i = 0; i < end_empty_day; i++) days.add(" ");   // 모양 유지 공백
+        }
+        else if(days.size() > 28){
+            for (int i = 0; i < end_empty_day-7; i++) days.add(" ");   // 모양 유지 공백
+        }
+        else
+            for (int i = 0; i < end_empty_day-14; i++) days.add(" ");
+
     }
 
     @Override
-    public int getItemCount () {
+    public int getItemCount() {
         return NUM_ITEMS;
     }
-
 }
