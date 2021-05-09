@@ -42,9 +42,13 @@ public class weekGridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int index = position;
+        WeekViewHolder weekViewHolder;
         if(convertView == null)
         {
             convertView = mLiInflater.inflate(mResource, null);
+
+            weekViewHolder = new weekGridViewAdapter.WeekViewHolder();
+            weekViewHolder.tvDay = (TextView) convertView.findViewById(R.id.day_cell_tv_day);
             convertView.setTag(index);
 
         } else
@@ -56,8 +60,12 @@ public class weekGridViewAdapter extends BaseAdapter {
         int height = mContext.getResources().getDisplayMetrics().heightPixels - 230;
         ((TextView)convertView.findViewById(R.id.day_cell_tv_day)).setHeight(height/6 - 23);
 
-
         return convertView;
+    }
+
+    public static class WeekViewHolder
+    {
+        public TextView tvDay;
     }
 
 
